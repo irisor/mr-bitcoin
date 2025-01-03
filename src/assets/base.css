@@ -1,52 +1,36 @@
-/* color palette from <https://github.com/vuejs/theme> */
 :root {
-  --vt-c-white: #ffffff;
-  --vt-c-white-soft: #f8f8f8;
-  --vt-c-white-mute: #f2f2f2;
-
-  --vt-c-black: #181818;
-  --vt-c-black-soft: #222222;
-  --vt-c-black-mute: #282828;
-
-  --vt-c-indigo: #2c3e50;
-
-  --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
-  --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
-  --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
-  --vt-c-divider-dark-2: rgba(84, 84, 84, 0.48);
-
-  --vt-c-text-light-1: var(--vt-c-indigo);
-  --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
-  --vt-c-text-dark-1: var(--vt-c-white);
-  --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
+  --color-primary: #D6CDA4; /* Pale Beige */
+  --color-secondary: #A8BFA8; /* Soft Sage Green */
+  --color-accent: #F2C94C; /* Warm Gold */
+  --color-background: #FFFFFF; /* White */
+  --color-text: #4B4B4B; /* Dark Charcoal */
+  --color-footer-background: #F9F9F9; /* Light Gray */
 }
 
 /* semantic color variables for this project */
 :root {
-  --color-background: var(--vt-c-white);
-  --color-background-soft: var(--vt-c-white-soft);
-  --color-background-mute: var(--vt-c-white-mute);
-
-  --color-border: var(--vt-c-divider-light-2);
-  --color-border-hover: var(--vt-c-divider-light-1);
-
-  --color-heading: var(--vt-c-text-light-1);
-  --color-text: var(--vt-c-text-light-1);
-
-  --section-gap: 160px;
+  --color-background-soft: var(--color-secondary); /* Soft background */
+  --color-background-mute: rgba(0, 0, 0, 0.5); /* Muted dark background with transparency */
+  
+  --color-border: var(--color-accent); /* Accent color for borders */
+  --color-border-hover: rgba(242, 201, 76, 0.8); /* Hover border color */
+  
+  --color-heading: var(--color-text); /* Text color for headings */
+  --color-text-light: rgba(255, 255, 255, 0.87); /* Light text color for better contrast */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-background: var(--vt-c-black);
-    --color-background-soft: var(--vt-c-black-soft);
-    --color-background-mute: var(--vt-c-black-mute);
+    --color-background: #4B4B4B; /* Dark Charcoal for background */
+    --color-background-soft: var(--color-secondary); /* Soft Sage Green for soft background */
+    
+    --color-border: var(--color-accent); /* Warm Gold for borders */
+    --color-border-hover: rgba(255, 255, 255, 0.29); /* Light border on hover */
+    
+    --color-heading: var(--color-text); /* Dark Charcoal for headings */
+    --color-text: rgba(255, 255, 255, 0.87); /* Light text color for better contrast */
 
-    --color-border: var(--vt-c-divider-dark-2);
-    --color-border-hover: var(--vt-c-divider-dark-1);
-
-    --color-heading: var(--vt-c-text-dark-1);
-    --color-text: var(--vt-c-text-dark-2);
+    --color-footer-background: #2C2C2C;
   }
 }
 
@@ -60,27 +44,20 @@
 
 body {
   min-height: 100vh;
+  font-family: Lato, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto;
+  font-size: 16px;
   color: var(--color-text);
   background: var(--color-background);
-  transition:
-    color 0.5s,
-    background-color 0.5s;
-  line-height: 1.6;
-  font-family:
-    Inter,
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    'Fira Sans',
-    'Droid Sans',
-    'Helvetica Neue',
-    sans-serif;
-  font-size: 15px;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+  background-color: var(--color-accent); /* Use accent color for button */
+  color: white; /* Ensure button text is white */
+  border: none; /* Remove default border */
+  padding: 0.5rem 1rem; /* Add padding to the button */
+  cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+button:hover {
+  background-color: var(--color-border-hover); /* Use variable for hover effect */
 }
