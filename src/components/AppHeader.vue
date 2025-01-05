@@ -1,6 +1,6 @@
 <template>
     <header>
-        <p>Welcome {{ user.name }}</p>
+        <p>{{ user.name }}</p>
         <button class="btn btn-secondary" @click="logout">Logout</button>
     </header>
 </template>
@@ -34,19 +34,4 @@ header {
     padding: 10px;
 }
 
-/* h1 {
-    margin: 0;
-} */
-
-/* button {
-    padding: 5px 10px;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #0056b3;
-} */
 </style>

@@ -40,6 +40,10 @@
   display: grid;
   grid-template-rows: auto 1fr auto;
   min-height: 100vh;
+
+  > main {
+    padding: 10px;
+  }
 }
 
 /* Base styles */
