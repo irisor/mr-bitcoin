@@ -1,7 +1,7 @@
 <template>
     <header>
         <p>Welcome {{ user.name }}</p>
-        <button @click="logout">Logout</button>
+        <button class="btn btn-secondary" @click="logout">Logout</button>
     </header>
 </template>
 
@@ -28,18 +28,17 @@ export default {
 
 <style scoped>
 header {
-    background-color: var(--color-footer-background);
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
 }
 
-h1 {
+/* h1 {
     margin: 0;
-}
+} */
 
-button {
+/* button {
     padding: 5px 10px;
     border: none;
     background-color: #007bff;
@@ -49,5 +48,5 @@ button {
 
 button:hover {
     background-color: #0056b3;
-}
+} */
 </style>

@@ -1,36 +1,30 @@
 :root {
-  --color-primary: #D6CDA4; /* Pale Beige */
-  --color-secondary: #A8BFA8; /* Soft Sage Green */
-  --color-accent: #F2C94C; /* Warm Gold */
-  --color-background: #FFFFFF; /* White */
-  --color-text: #4B4B4B; /* Dark Charcoal */
-  --color-footer-background: #F9F9F9; /* Light Gray */
-}
-
-/* semantic color variables for this project */
-:root {
-  --color-background-soft: var(--color-secondary); /* Soft background */
-  --color-background-mute: rgba(0, 0, 0, 0.5); /* Muted dark background with transparency */
-  
-  --color-border: var(--color-accent); /* Accent color for borders */
-  --color-border-hover: rgba(242, 201, 76, 0.8); /* Hover border color */
-  
-  --color-heading: var(--color-text); /* Text color for headings */
-  --color-text-light: rgba(255, 255, 255, 0.87); /* Light text color for better contrast */
+  --color-primary: #6b9080;
+  --color-primary-hover: #557669;
+  --color-secondary: #a4c3b2;
+  --color-background: #f6fff8;
+  --color-surface: #ffffff;
+  --color-text: #2d3833;
+  --color-text-secondary: #4a5d54;
+  --color-border: #cce3de;
+  --color-error: #d64545;
+  --color-success: #287d3c;
+  --color-warning: #b4690e;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-background: #4B4B4B; /* Dark Charcoal for background */
-    --color-background-soft: var(--color-secondary); /* Soft Sage Green for soft background */
-    
-    --color-border: var(--color-accent); /* Warm Gold for borders */
-    --color-border-hover: rgba(255, 255, 255, 0.29); /* Light border on hover */
-    
-    --color-heading: var(--color-text); /* Dark Charcoal for headings */
-    --color-text: rgba(255, 255, 255, 0.87); /* Light text color for better contrast */
-
-    --color-footer-background: #2C2C2C;
+    --color-primary: #84a998;
+    --color-primary-hover: #96bbaa;
+    --color-secondary: #557669;
+    --color-background: #1a1f1c;
+    --color-surface: #2d3833;
+    --color-text: #eaf4ef;
+    --color-text-secondary: #cce3de;
+    --color-border: #4a5d54;
+    --color-error: #ff6b6b;
+    --color-success: #4caf50;
+    --color-warning: #ffa726;
   }
 }
 
@@ -42,22 +36,95 @@
   font-weight: normal;
 }
 
-body {
+#app {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
   min-height: 100vh;
-  font-family: Lato, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto;
+}
+
+/* Base styles */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   font-size: 16px;
+  line-height: 1.5;
+  background-color: var(--color-background);
   color: var(--color-text);
-  background: var(--color-background);
 }
 
-button {
-  background-color: var(--color-accent); /* Use accent color for button */
-  color: white; /* Ensure button text is white */
-  border: none; /* Remove default border */
-  padding: 0.5rem 1rem; /* Add padding to the button */
-  cursor: pointer; /* Change cursor to pointer on hover */
+/* Button styles */
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }
 
-button:hover {
-  background-color: var(--color-border-hover); /* Use variable for hover effect */
+/* Primary button */
+.btn-primary {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-hover);
+}
+
+/* Secondary button */
+.btn-secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+}
+
+.btn-secondary:hover {
+  opacity: 0.9;
+}
+
+/* Disabled button state */
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Form elements */
+input, textarea, select {
+  padding: 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+}
+
+/* Links */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Helper classes */
+.text-error {
+  color: var(--color-error);
+}
+
+.text-success {
+  color: var(--color-success);
+}
+
+.text-warning {
+  color: var(--color-warning);
+}
+
+.text-secondary {
+  color: var(--color-text-secondary);
 }
