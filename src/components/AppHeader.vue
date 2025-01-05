@@ -1,5 +1,9 @@
 <template>
     <header>
+        <nav>
+            <RouterLink to="/">Home</RouterLink> |
+            <RouterLink to="/contact">Contact</RouterLink>
+        </nav>
         <p>{{ user.name }}</p>
         <button class="btn btn-secondary" @click="logout">Logout</button>
     </header>
@@ -28,10 +32,18 @@ export default {
 
 <style scoped>
 header {
-    display: flex;
+    display: grid;
+    gap: 1em;
+    grid-template-columns: 1fr auto auto;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
+}
+
+nav {
+    align-items: center;
+    display: flex;
+    gap: 1em;
 }
 
 </style>

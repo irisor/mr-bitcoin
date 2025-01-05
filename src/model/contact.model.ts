@@ -5,6 +5,6 @@ export interface Contact {
     phone: string
 }
 
-export interface ContactFilter {
+export interface ContactFilterModel {
     term: string
 }

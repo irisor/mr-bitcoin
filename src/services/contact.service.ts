@@ -1,4 +1,4 @@
-import type { Contact, ContactFilter } from "@/model/contact.model";
+import type { Contact, ContactFilterModel } from "@/model/contact.model";
 
 export const contactService = {
     getContacts,
@@ -139,7 +139,7 @@ function sort(arr: Contact[]): Contact[] {
     })
 }
 
-function getContacts(filterBy: ContactFilter | null  = null): Promise<Contact[]> {
+function getContacts(filterBy: ContactFilterModel | null  = null): Promise<Contact[]> {
     return new Promise((resolve, reject) => {
         let contactsToReturn: Contact[] = contacts
         if (filterBy && filterBy.term) {
