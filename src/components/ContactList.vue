@@ -1,10 +1,16 @@
 <template>
-    <ul class="contact-list">
-        <li class="contact-preview" v-for="contact in contacts" :key="contact._id">
-            <ContactPreview :contact="contact" />
-            <button class="btn btn-primary" @click="onRemoveContact(contact._id)">x</button>
-        </li>
-    </ul>
+    <section v-if="contacts.length">
+        <ul class="contact-list">
+            <li class="contact-preview" v-for="contact in contacts" :key="contact._id">
+                <ContactPreview :contact="contact" />
+                <section class="contact-actions">
+                    <button class="btn btn-primary" @click="onRemoveContact(contact._id)">x</button>
+                    <RouterLink class="btn btn-primary" :to="`/contact/${contact._id}`">Details</RouterLink>
+                </section>
+            </li>
+        </ul>
+    </section>
+    <p v-else>Loading...</p>
 </template>
 
 <script lang="ts">
@@ -25,7 +31,7 @@ export default defineComponent({
     methods: {
         onRemoveContact(contactId: string) {
             this.$emit('remove', contactId)
-        }
+        },
     }
 })
 </script>
@@ -45,5 +51,10 @@ export default defineComponent({
     gap: 1rem;
     padding: 1rem;
     border-radius: 4px;
+}
+
+.contact-actions {
+    display: flex;
+    gap: 1rem;
 }
 </style>
