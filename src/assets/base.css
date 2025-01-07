@@ -10,6 +10,7 @@
   --color-error: #d64545;
   --color-success: #287d3c;
   --color-warning: #b4690e;
+  --color-chart-line: #f7931a;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -25,6 +26,7 @@
     --color-error: #ff6b6b;
     --color-success: #4caf50;
     --color-warning: #ffa726;
+    --color-chart-line: #f7931a;
   }
 }
 

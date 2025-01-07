@@ -2,7 +2,8 @@
     <header>
         <nav>
             <RouterLink to="/">Home</RouterLink> |
-            <RouterLink to="/contact">Contact</RouterLink>
+            <RouterLink to="/contact">Contact</RouterLink> |
+            <RouterLink to="/stats">Stats</RouterLink>
         </nav>
         <p>{{ user.name }}</p>
         <button class="btn btn-secondary" @click="logout">Logout</button>
