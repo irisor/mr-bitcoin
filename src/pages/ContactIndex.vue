@@ -3,6 +3,7 @@
         <h1>Contacts</h1>
         <header>
             <ContactFilter @filter="filterBy" />
+            <RouterLink to="/contact/edit">Add a Contact</RouterLink>
         </header>
         <ContactList :contacts="contacts" @remove="removeContact" />
     </main>
@@ -57,5 +58,12 @@ export default defineComponent({
 .contact-index {
     display: grid;
     gap: 1rem;
+}
+
+header {
+    align-items: center;
+    display: flex;
+    gap: 1em;
+    justify-content: flex-start;
 }
 </style>

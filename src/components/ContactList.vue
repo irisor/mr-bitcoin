@@ -4,8 +4,9 @@
             <li class="contact-preview" v-for="contact in contacts" :key="contact._id">
                 <ContactPreview :contact="contact" />
                 <section class="contact-actions">
-                    <button class="btn btn-primary" @click="onRemoveContact(contact._id)">x</button>
                     <RouterLink class="btn btn-primary" :to="`/contact/${contact._id}`">Details</RouterLink>
+                    <RouterLink class="btn btn-primary" :to="`/contact/edit/${contact._id}`">Edit</RouterLink>
+                    <button class="btn btn-primary" @click="onRemoveContact(contact._id)">x</button>
                 </section>
             </li>
         </ul>

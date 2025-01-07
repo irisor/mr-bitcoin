@@ -74,6 +74,10 @@ body {
   transition: all 0.2s ease-in-out;
 }
 
+.btn:hover {
+  text-decoration: none;
+}
+
 /* Primary button */
 .btn-primary {
   background-color: var(--color-primary);
