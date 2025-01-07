@@ -13,7 +13,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
-      base: "/mr-bitcoin/"
     },
   },
+  base: "/mr-bitcoin/"
 })
