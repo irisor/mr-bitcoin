@@ -1,6 +1,7 @@
 {
   "name": "mr-bit",
   "version": "0.0.0",
+  "homepage": "https://irisor.github.io/mr-bitcoin/",
   "private": true,
   "type": "module",
   "scripts": {
@@ -9,7 +10,9 @@
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
-    "lint": "eslint . --fix"
+    "lint": "eslint . --fix",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "axios": "^1.7.9",
@@ -26,6 +29,7 @@
     "@vue/tsconfig": "^0.7.0",
     "eslint": "^9.14.0",
     "eslint-plugin-vue": "^9.30.0",
+    "gh-pages": "^6.3.0",
     "npm-run-all2": "^7.0.2",
     "typescript": "~5.6.3",
     "vite": "^6.0.5",
