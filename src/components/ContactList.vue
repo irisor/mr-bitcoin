@@ -1,5 +1,6 @@
 <template>
-    <section v-if="contacts.length">
+    <p v-if="isLoading">Loading...</p>
+    <section v-else-if="contacts.length">
         <ul class="contact-list">
             <li class="contact-preview" v-for="contact in contacts" :key="contact._id">
                 <ContactPreview :contact="contact" />
@@ -11,7 +12,7 @@
             </li>
         </ul>
     </section>
-    <p v-else>Loading...</p>
+    <p v-else>No results</p>
 </template>
 
 <script lang="ts">
@@ -26,6 +27,10 @@ export default defineComponent({
     props: {
         contacts: {
             type: Array as () => Contact[],
+            required: true
+        },
+        isLoading: {
+            type: Boolean,
             required: true
         }
     },

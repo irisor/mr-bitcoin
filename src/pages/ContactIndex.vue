@@ -5,37 +5,38 @@
             <ContactFilter @filter="filterBy" />
             <RouterLink to="/contact/edit">Add a Contact</RouterLink>
         </header>
-        <ContactList :contacts="contacts" @remove="removeContact" />
+        <ContactList :contacts="contacts" @remove="removeContact" :isLoading="isLoading" />
     </main>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { contactService } from "@/services/contact.service"
 import type { Contact, ContactFilterModel } from "@/model/contact.model"
-import ContactList from '@/components/ContactList.vue';
-import ContactFilter from '@/components/ContactFilter.vue';
+import ContactList from '@/components/ContactList.vue'
+import ContactFilter from '@/components/ContactFilter.vue'
 
 export default defineComponent({
     components: {
         ContactList,
         ContactFilter,
     },
-    data() {
-        return {
-            contacts: [] as Contact[]
-        };
-    },
     async created() {
+        this.$store.subscribe((cmd: any, state: any) => console.log("create", cmd, state))
         await this.loadContacts()
+    },
+    computed: {
+        contacts(): Contact[] {
+            console.log("contactIndex computed contacts", this.$store.getters.contacts)
+            return this.$store.getters.contacts || []
+        },
+        isLoading(): boolean {
+            return this.$store.getters.isLoading
+        }
     },
     methods: {
         async removeContact(contactId: string) {
             try {
-                await contactService.deleteContact(contactId)
-
-                const idx = this.contacts.findIndex(contact => contact._id === contactId)
-                this.contacts.splice(idx, 1)
+                await this.$store.dispatch({ type: 'removeContact', contactId })
             } catch (err) {
                 alert('Something went wrong')
             }
@@ -44,14 +45,9 @@ export default defineComponent({
             await this.loadContacts(filterBy)
         },
         async loadContacts(filterBy: ContactFilterModel = { term: '' }) {
-            try {
-                const contacts = await contactService.getContacts(filterBy)
-                this.contacts = contacts
-            } catch (error) {
-                console.error('Error fetching contacts:', error)
-            }
+            this.$store.dispatch({ type: 'loadContacts', filterBy })
         }
-    }
+    },
 })
 </script>
 <style scoped>
