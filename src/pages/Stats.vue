@@ -17,6 +17,7 @@ import {
     Filler,
     type TooltipItem,
     type ChartData,
+    ChartOptions,
 } from 'chart.js'
 import { Line } from 'vue-chartjs'
 import { bitcoinService } from '@/services/bitcoin.service'
@@ -42,18 +43,9 @@ export default {
     data() {
         return {
             chartData: {
-                labels: [],
-                datasets: [
-                    {
-                        label: 'Bitcoin Price (USD)',
-                        borderColor: 'var(--color-chart-line)', // Bitcoin orange
-                        borderWidth: 2,
-                        fill: true,
-                        tension: 0.4,
-                        data: []
-                    }
-                ]
-            } as ChartData<'line'>,
+                labels: [] as string[], // Explicitly typed
+                datasets: []
+            },
             chartOptions: {
                 responsive: true,
                 maintainAspectRatio: false,
@@ -103,20 +95,18 @@ export default {
                     y: item.y
                 }))
 
-                // Create a complete ChartData object
+                // Update chartData with the correct structure
                 this.chartData = {
-                    labels: processedData.map(item => item.x),
+                    labels: processedData.map(item => item.x as string),
                     datasets: [{
                         label: 'Bitcoin Price (USD)',
                         borderColor: '#F7931A', // Bitcoin orange
-                        backgroundColor: 'rgba(247, 147, 26, 0.1)',
                         borderWidth: 2,
                         fill: true,
                         tension: 0.4,
-                        data: processedData.map(item => item.y)
-                    }
-                    ]
-                }
+                        data: processedData.map(item => item.y as number)
+                    }]
+                } as ChartData<'line', number[], string>
             } catch (error) {
                 console.error('Error loading chart data:', error)
             }
