@@ -1,6 +1,6 @@
 import { contactService } from "@/services/contact.service"
 import type { Contact, ContactFilterModel } from "@/model/contact.model"
-import { ContactState } from "vuex"
+import { ContactState } from "@/store/store"
 
 export default {
     state(): ContactState {

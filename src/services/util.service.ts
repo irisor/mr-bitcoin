@@ -26,10 +26,10 @@ export function loadFromStorage(key: string) {
 }
 
 export function debounce<T>(func: Function, delay: number) {
-    let timeoutId:number
+    let timeoutId: number
 
     return (...args:T[]) => {
         clearTimeout(timeoutId)
-        timeoutId = setTimeout(() => func(...args), delay)
+        timeoutId = window.setTimeout(() => func(...args), delay)
     }
 }

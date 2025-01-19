@@ -6,7 +6,7 @@ import Stats from '@/pages/Stats.vue'
 import ContactEdit from '@/pages/ContactEdit.vue'
 
 const router = createRouter({
-  history: createWebHashHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory('/mr-bitcoin/'),
   routes: [
     {
       path: '/',

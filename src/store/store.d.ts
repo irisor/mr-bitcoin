@@ -1,41 +1,39 @@
 import { Contact } from '@/model/contact.model';
-import { Store as VuexStore, ContactMutations, RootState } from 'vuex';
+import { Store } from 'vuex';
 
+// State interfaces
+interface ContactState {
+    contacts: Array<Contact | null>
+    isLoading: boolean
+}
+
+export interface RootState {
+    contact: ContactState
+}
+
+// Mutations
+type ContactMutations = {
+    setContacts(state: ContactState, payload: { contacts: Array<Contact> }): void
+    removeContact(state: ContactState, payload: { contactId: string }): void
+}
+
+// Augment vuex module with our specific types
 declare module 'vuex' {
-    // Define the state interface
-    export interface ContactState {
-        contacts: Array<Contact | null>
-        isLoading: boolean
+    // Add custom getters
+    export interface Getters {
+        contacts(state: ContactState): Array<Contact | null>
     }
 
-    // Define the root state interface
-    export interface RootState {
-        contact: ContactState
-    }
-
-    // Define the mutations
-    export interface ContactMutations<S = ContactState> {
+    // Add strongly typed mutations
+    export interface MutationTree<S> {
         setContacts(state: S, payload: { contacts: Array<Contact> }): void
         removeContact(state: S, payload: { contactId: string }): void
     }
-
-    // Define the getters
-    export interface ContactGetters extends GetterTree<ContactState, RootState> {
-        contacts(state: ContactState): Array<Contact | null>
-    }
 }
 
-// Create a new store type that merges the base Store type with our custom types
-export type Store = Omit<VuexStore<RootState>, 'getters' | 'commit'> & {
-    getters: {
-        contacts: Array<Contact | null>
-    };
-    commit<K extends keyof ContactMutations>(
-        type: K,
-        payload: Parameters<ContactMutations[K]>[1]
-    ): void;
-};
-
-// Export the store instance
-declare const store: Store
-export default store
+// For Options API support
+declare module '@vue/runtime-core' {
+    interface ComponentCustomProperties {
+        $store: Store<RootState>
+    }
+}

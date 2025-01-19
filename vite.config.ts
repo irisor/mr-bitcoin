@@ -16,7 +16,7 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
-  base: "/mr-bitcoin/",
+  base: process.env.BASE_URL || '/',
   build: {
     outDir: resolve(__dirname, 'dist')
   }

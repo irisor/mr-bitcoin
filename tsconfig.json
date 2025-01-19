@@ -4,17 +4,20 @@
     "paths": {
       "@/*": ["*"]
     },
-    "noEmit": true
+    "noEmit": true,
+    "module": "commonjs",
+    // "types": ["vite/client"]
   },
   "files": [],
   "include": [
     "src/**/*.ts",
     "src/**/*.d.ts",
-    "src/**/*.vue"
+    "src/**/*.vue",
+    "vite-env.d.ts"
   ],
   "references": [
     {
       "path": "./tsconfig.node.json"
     },
-  ]
+  ],
 }
