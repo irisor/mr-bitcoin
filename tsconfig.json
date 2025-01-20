@@ -1,11 +1,23 @@
 {
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "@/*": ["*"]
+    },
+    "noEmit": true,
+    "module": "commonjs",
+    // "types": ["vite/client"]
+  },
   "files": [],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.vue",
+    "vite-env.d.ts"
+  ],
   "references": [
     {
       "path": "./tsconfig.node.json"
     },
-    {
-      "path": "./tsconfig.app.json"
-    }
-  ]
+  ],
 }
