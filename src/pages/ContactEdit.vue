@@ -33,14 +33,25 @@ export default defineComponent({
     methods: {
         async onSave() {
             if (!this.contact) return
-            await contactService.saveContact(this.contact as Contact)
-            this.$router.push('/contact')
+            try {
+                await this.$store.dispatch({type: 'saveContact', contact: this.contact as Contact})
+                this.$router.push('/contact')
+            } catch (err) {
+                alert('Something went wrong')
+            }
         }
     },
     async created() {
         const contactId = String(this.$route.params.id)
         if (!contactId) this.contact = contactService.getEmptyContact()
-        else this.contact = await contactService.getContactById(contactId)
+        try {
+            this.contact = await this.$store.dispatch({
+                type: 'getContact',
+                contactId
+            })
+        } catch (err) {
+            console.error('Failed to load contact:', err)
+        }
     }
 })
 </script>

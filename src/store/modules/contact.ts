@@ -18,6 +18,13 @@ export default {
             const idx = contactState.contacts.findIndex(contact => contact?._id === contactId)
             contactState.contacts.splice(idx, 1)
         },
+        updateContact(contactState: ContactState, { contact }: { contact: Contact }): void {
+            const idx = contactState.contacts.findIndex(c => c?._id === contact._id)
+            contactState.contacts.splice(idx, 1, contact)
+        },
+        addContact(contactState: ContactState, { contact }: { contact: Contact }): void {
+            contactState.contacts.push(contact)
+        },
         setIsLoading(contactState: ContactState, { isLoading }: { isLoading: boolean }): void {
             contactState.isLoading = isLoading
         }
@@ -29,10 +36,14 @@ export default {
         },
         isLoading(contactState: ContactState): boolean {
             return contactState.isLoading
-        }
+        },
+        getContactById: (state: ContactState) => (id: string): Contact | undefined => {
+            return state.contacts.find(contact => contact._id === id)
+        },
     } as {
         contacts: (state: ContactState) => Array<Contact | null>
-        isLoading: (state: ContactState) => boolean
+        isLoading: (state: ContactState) => boolean,
+        getContactById: (state: ContactState) => (id: string) => Contact | undefined
     },
     actions: {
         async loadContacts(context: { commit: (arg0: { type: string; contacts?: any; isLoading?: boolean; }) => void }, { filterBy }: { filterBy: ContactFilterModel }) {
@@ -48,14 +59,32 @@ export default {
                 context.commit({ type: 'setIsLoading', isLoading: false })
             }
         },
-        async removeContact({ commit }: { commit: (arg0: { type: string; contactId: any; }) => void }, { contactId }) {
+        async removeContact({ commit }: { commit: (arg0: { type: string; contactId: string; }) => void }, { contactId }) {
             try {
                 await contactService.deleteContact(contactId)
                 commit({ type: 'removeContact', contactId })
             } catch (err) {
-                console.log(err)                
+                console.log(err)
                 throw err
             }
+        },
+        async saveContact({ commit }: { commit: (arg0: { type: string; contact: Contact; }) => void }, { contact }) {
+            const actionType = (contact._id) ? 'updateContact' : 'addContact'
+            const savedContact = await contactService.saveContact(contact)
+            commit({ type: actionType, contact: savedContact })
+            return savedContact
+        },
+        async getContact({ commit }: { commit: Function }, { contactId }: { contactId: string }) {
+    
+            // If not in store, fetch from service
+            if (!this.getters.contacts.length) {
+                await this.dispatch({
+                    type: 'loadContacts',
+                    filterBy: {} as ContactFilterModel
+                })
+            }
+            const contact = this.getters.getContactById(contactId)
+            if (contact) return contact
         }
     },
 }
