@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import { showSuccessMsg } from "@/services/eventBus.service";
 import { userService } from "@/services/user.service";
 
 export default {
@@ -25,7 +26,7 @@ export default {
     methods: {
         logout() {
             // Implement logout functionality here
-            console.log("User logged out");
+            showSuccessMsg('User logged out')
         }
     }
 };

@@ -14,6 +14,7 @@ import { defineComponent } from 'vue'
 import type { Contact, ContactFilterModel } from "@/model/contact.model"
 import ContactList from '@/components/ContactList.vue'
 import ContactFilter from '@/components/ContactFilter.vue'
+import { showErrorMsg } from '@/services/eventBus.service';
 
 export default defineComponent({
     components: {
@@ -26,7 +27,6 @@ export default defineComponent({
     },
     computed: {
         contacts(): Contact[] {
-            console.log("contactIndex computed contacts", this.$store.getters.contacts)
             return this.$store.getters.contacts || []
         },
         isLoading(): boolean {
@@ -38,7 +38,7 @@ export default defineComponent({
             try {
                 await this.$store.dispatch({ type: 'removeContact', contactId })
             } catch (err) {
-                alert('Something went wrong')
+                showErrorMsg('Something went wrong')
             }
         },
         async filterBy(filterBy: ContactFilterModel) {
