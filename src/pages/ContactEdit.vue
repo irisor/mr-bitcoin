@@ -2,13 +2,13 @@
     <section class="contact-edit">
         <form v-if="contact" @submit.prevent="onSave">
             <label to="name">Name:</label>
-            <input v-model="contact.name" type="text">
+            <input v-model="localContact.name" type="text">
 
             <label to="email">Email:</label>
-            <input v-model="contact.email" type="email">
+            <input v-model="localContact.email" type="email">
 
             <label to="phone">Phone:</label>
-            <input v-model="contact.phone" type="phone">
+            <input v-model="localContact.phone" type="phone">
             <button class="btn btn-secondary">Save</button>
         </form>
         <div v-else class="loading-placeholder">
@@ -23,34 +23,41 @@
 import { defineComponent } from 'vue'
 import type { Contact } from "@/model/contact.model"
 import { contactService } from "@/services/contact.service"
+import { showErrorMsg, showSuccessMsg } from '@/services/eventBus.service';
 
 export default defineComponent({
     data() {
         return {
             contact: null as Partial<Contact> | null,
+            localContact: null as Partial<Contact> | null,
         }
     },
     methods: {
         async onSave() {
-            if (!this.contact) return
+            if (!this.localContact) return
             try {
-                await this.$store.dispatch({type: 'saveContact', contact: this.contact as Contact})
+                await this.$store.dispatch({ type: 'saveContact', contact: this.localContact as Contact })
+                showSuccessMsg('Contact saved')
                 this.$router.push('/contact')
             } catch (err) {
-                alert('Something went wrong')
+                showErrorMsg('Something went wrong')
             }
         }
     },
     async created() {
         const contactId = String(this.$route.params.id)
-        if (!contactId) this.contact = contactService.getEmptyContact()
-        try {
+        if (!contactId) this.localContact = contactService.getEmptyContact()
+        else {
             this.contact = await this.$store.dispatch({
                 type: 'getContact',
                 contactId
             })
-        } catch (err) {
-            console.error('Failed to load contact:', err)
+            if (!this.contact) {
+                showErrorMsg('Contact not found')
+                this.$router.push('/contact')
+            } else {
+                this.localContact = { ...this.contact }
+            }
         }
     }
 })

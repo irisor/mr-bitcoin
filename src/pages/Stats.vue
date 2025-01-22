@@ -22,6 +22,7 @@ import {
 import { Line } from 'vue-chartjs'
 import { bitcoinService } from '@/services/bitcoin.service'
 import type { MarketPriceData, PriceItem } from '@/model/bitcoin.model';
+import { showErrorMsg } from '@/services/eventBus.service';
 
 // Register ChartJS components
 ChartJS.register(
@@ -108,7 +109,7 @@ export default {
                     }]
                 } as ChartData<'line', number[], string>
             } catch (error) {
-                console.error('Error loading chart data:', error)
+                showErrorMsg('Error loading chart data')
             }
         }
     }

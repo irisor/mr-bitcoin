@@ -84,7 +84,7 @@ export default {
                 })
             }
             const contact = this.getters.getContactById(contactId)
-            if (contact) return contact
+            return contact
         }
     },
 }

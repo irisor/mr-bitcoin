@@ -37,3 +37,9 @@ declare module '@vue/runtime-core' {
         $store: Store<RootState>
     }
 }
+
+declare global {
+  interface Window {
+    eventBus: any;
+  }
+}
