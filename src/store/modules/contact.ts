@@ -1,6 +1,7 @@
 import { contactService } from "@/services/contact.service"
 import type { Contact, ContactFilterModel } from "@/model/contact.model"
 import { ContactState } from "@/store/store"
+import { showErrorMsg } from "@/services/eventBus.service"
 
 export default {
     state(): ContactState {
@@ -12,7 +13,6 @@ export default {
     mutations: {
         setContacts(contactState: ContactState, { contacts }: { contacts: Contact[] }): void {
             contactState.contacts = contacts
-            console.log("setContacts", contactState, contacts)
         },
         removeContact(contactState: ContactState, { contactId }: { contactId: string }): void {
             const idx = contactState.contacts.findIndex(contact => contact?._id === contactId)
@@ -31,7 +31,6 @@ export default {
     },
     getters: {
         contacts(contactState: ContactState): Array<Contact | null> {
-            console.log("getContacts")
             return contactState.contacts
         },
         isLoading(contactState: ContactState): boolean {
@@ -50,10 +49,9 @@ export default {
             context.commit({ type: 'setIsLoading', isLoading: true })
             try {
                 const contacts = await contactService.getContacts(filterBy)
-                console.log("Store contacts:", contacts, "Store filterBy", filterBy)
                 context.commit({ type: 'setContacts', contacts })
             } catch (err) {
-                console.log(err)
+                showErrorMsg('Error loading contacts')
                 throw err
             } finally {
                 context.commit({ type: 'setIsLoading', isLoading: false })
@@ -64,7 +62,7 @@ export default {
                 await contactService.deleteContact(contactId)
                 commit({ type: 'removeContact', contactId })
             } catch (err) {
-                console.log(err)
+                showErrorMsg('Error deleting contact')
                 throw err
             }
         },

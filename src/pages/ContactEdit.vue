@@ -1,6 +1,6 @@
 <template>
     <section class="contact-edit">
-        <form v-if="contact" @submit.prevent="onSave">
+        <form v-if="localContact" @submit.prevent="onSave">
             <label to="name">Name:</label>
             <input v-model="localContact.name" type="text">
 
