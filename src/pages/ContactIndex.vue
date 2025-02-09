@@ -22,7 +22,6 @@ export default defineComponent({
         ContactFilter,
     },
     async created() {
-        this.$store.subscribe((cmd: any, state: any) => console.log("create", cmd, state))
         await this.loadContacts()
     },
     computed: {
